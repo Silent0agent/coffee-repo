@@ -9,7 +9,7 @@ class Coffee(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('main.ui', self)
-        self.setWindowTitle('Эспрессо')
+        self.setWindowTitle('Капучино')
         self.conn = sqlite3.connect('coffee.sqlite')
         self.cur = self.conn.cursor()
         self.load_table()
