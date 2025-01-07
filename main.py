@@ -1,16 +1,17 @@
 import sqlite3
 import sys
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QWidget
+from main_ui import Ui_MainWindow
+from addEditCoffeeForm import Ui_Form
 
 
-class Coffee(QMainWindow):
+class Coffee(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
-        self.setWindowTitle('Капучино')
-        self.conn = sqlite3.connect('coffee.sqlite')
+        self.setupUi(self)
+        self.setWindowTitle('Латте макиато')
+        self.conn = sqlite3.connect('data\\coffee.sqlite')
         self.cur = self.conn.cursor()
         self.load_table()
         self.pushButton.clicked.connect(self.open_win)
@@ -31,13 +32,13 @@ class Coffee(QMainWindow):
         self.win.show()
 
 
-class addEdit(QWidget):
+class addEdit(QWidget, Ui_Form):
     def __init__(self, parent):
         super().__init__()
+        self.setupUi(self)
         self.parent = parent
-        uic.loadUi('addEditCoffeeForm.ui', self)
         self.setWindowTitle('Добавление/редактирование кофе')
-        self.conn = sqlite3.connect('coffee.sqlite')
+        self.conn = sqlite3.connect('data\\coffee.sqlite')
         self.cur = self.conn.cursor()
         self.loadButton.clicked.connect(self.load_coffee)
         self.addButton.clicked.connect(self.add_coffee)
